@@ -1,14 +1,90 @@
 /*
- * Hussban Invest - Premium AI Sales Assistant
- * Bilingual (AR/EN) | WhatsApp Business | Manus AI
+ * Hussban Invest — Smart Conversational AI Engine
+ * Bilingual AR/EN | WhatsApp Business | Zero External API Dependencies
+ * Version 3.0 — Fully Self-contained
  */
 
 /* ─── Configuration ─── */
 const CONFIG = {
     WHATSAPP: '00962770661862',
-    MANUS_API_KEY: 'sk-3P7oDW85yaVVZLzphZCFJG4IdtbiKcIG115cK6gmSKncVnanXopoumk5IgkcsKy33oXcjI9lOfhizC7Ujt5L5I1Hn4AH',
     DATABASE_URL: 'https://docs.google.com/spreadsheets/d/11Jo4KnhSgh_CnAOa7Nn4JNGa9Ax_TX7J1BYizMbyTDs/export?format=csv&cachebust=' + Date.now(),
     CORS_PROXY: 'https://api.allorigins.win/raw?url=',
+    TYPING_DELAY_MIN: 800,
+    TYPING_DELAY_MAX: 2200,
+};
+
+/* ─── Projects Knowledge Base ─── */
+const PROJECTS_KB = {
+    victoria: {
+        ar: { name: 'كمباوند فلل فيكتوريا', type: 'فلل مستقلة', price: '260,000 دينار', location: 'طريق المطار، عمّان', desc: 'مجمع فلل مستقلة راقٍ على طريق المطار يتميز بتصاميم عصرية ومساحات خضراء واسعة ومرافق متكاملة للعائلة.', url: './projects/victoria.html', mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13554.498425121406!2d35.9149021!3d31.8624177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca79e4d588fa7%3A0x60f06bfefbf89be8!2sQueen%20Alia%20International%20Airport%20Road!5e0!3m2!1sen!2sjo!4v1700000000000' },
+        en: { name: 'Victoria Villas Compound', type: 'Independent Villas', price: 'JOD 260,000', location: 'Airport Road, Amman', desc: 'An upscale compound of independent villas on Airport Road featuring modern designs, expansive green spaces, and full family amenities.', url: './projects/victoria.html' }
+    },
+    yasmina: {
+        ar: { name: 'كمباوند ياسمينا ريزدنس', type: 'شقق وفلل', price: 'تواصل للأسعار', location: 'الأردن', desc: 'مجمع سكني متكامل يجمع بين الأناقة والراحة في بيئة هادئة ومتميزة، مع خدمات ومرافق على أعلى مستوى.', url: './projects/yasmina.html' },
+        en: { name: 'Yasmina Residence Compound', type: 'Apartments & Villas', price: 'Contact for pricing', location: 'Jordan', desc: 'A fully-integrated residential compound combining elegance and comfort in a peaceful, distinguished environment with top-tier services.', url: './projects/yasmina.html' }
+    },
+    mafrak: {
+        ar: { name: 'كمباوند فلل الأردن - المفرق', type: 'فلل وشقق', price: '48,000 دينار', location: 'المفرق، الأردن', desc: 'فرصة استثمارية متميزة في شمال الأردن بأسعار تنافسية مدروسة وعوائد إيجارية مجزية في موقع استراتيجي.', url: './projects/mafrak.html' },
+        en: { name: 'Jordan Villas - Mafraq', type: 'Villas & Apartments', price: 'JOD 48,000', location: 'Mafraq, Jordan', desc: 'An outstanding investment opportunity in northern Jordan with competitive pricing and attractive rental yields in a strategic location.', url: './projects/mafrak.html' }
+    },
+    dabouq: {
+        ar: { name: 'فلل دابوق الفاخرة', type: 'فلل فخمة 500م²', price: '850,000 دينار', location: 'دابوق، عمّان', desc: 'فلل حصرية بمساحة 500 متر مربع في أرقى أحياء عمّان مع تشطيبات إيطالية راقية ومسابح خاصة وحدائق مصممة.', url: './projects/dabouq.html', mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13538.52042145!2d35.8118012!3d31.9701018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca11aaef838b9%3A0x9bbd8b52eb4bff8!2sDabouq%2C%20Amman!5e0!3m2!1sen!2sjo!4v1700000000000' },
+        en: { name: 'Dabouq Luxury Villas', type: '500m² Premium Villas', price: 'JOD 850,000', location: 'Dabouq, Amman', desc: 'Exclusive 500m² villas in Amman\'s most prestigious neighborhood featuring Italian finishes, private pools, and landscaped gardens.', url: './projects/dabouq.html' }
+    },
+    previous: {
+        ar: { name: 'المشاريع السابقة خارج الأردن', type: 'مشاريع دولية', price: 'متنوعة', location: 'تركيا وخارجها', desc: 'سجل حافل بالمشاريع الناجحة خارج الأردن بما فيها مشاريع في تركيا ودول أخرى بعوائد استثمارية ممتازة.', url: './projects/previous.html' },
+        en: { name: 'International Projects', type: 'International', price: 'Varied', location: 'Turkey & Beyond', desc: 'A strong track record of successful projects outside Jordan, including Turkey and other countries with excellent investment returns.', url: './projects/previous.html' }
+    },
+    commercial: {
+        ar: { name: 'المشاريع التجارية', type: 'تجاري', price: 'تواصل للأسعار', location: 'الأردن', desc: 'فرص تجارية واستثمارية متميزة في قطاعات متنوعة تشمل المحلات التجارية والمكاتب والمستودعات بعوائد إيجارية مجزية.', url: './projects/commercial.html' },
+        en: { name: 'Commercial Projects', type: 'Commercial', price: 'Contact for pricing', location: 'Jordan', desc: 'Outstanding commercial and investment opportunities across diverse sectors including retail, offices, and warehouses with attractive returns.', url: './projects/commercial.html' }
+    }
+};
+
+/* ─── Conversation Engine ─── */
+const CONV_STATES = { GREETING: 0, GET_NEED: 1, SHOW_PROJECTS: 2, GET_BUDGET: 3, GET_NAME: 4, GET_PHONE: 5, GET_PAYMENT: 6, QUALIFIED: 7, FREE_CHAT: 99 };
+
+const BOT = {
+    ar: {
+        greeting: `أهلاً وسهلاً! 👋 أنا مساعد <strong>Hussban Invest</strong> الذكي لخدمة المبيعات.\nيسعدني مساعدتك في إيجاد العقار المثالي بأفضل الأسعار! 🏠\n\nهل أنت مهتم بـ:`,
+        greetingOptions: ['🏡 شراء عقار للسكن', '💰 الاستثمار العقاري', '📋 الاستفسار عن مشروع معين'],
+        askBudget: `ممتاز! 💼 لمساعدتك بشكل أفضل، ما هو المدى السعري الذي تفكر فيه؟`,
+        budgetOptions: ['أقل من 100,000 دينار', '100,000 - 300,000 دينار', 'أكثر من 300,000 دينار', 'مرن / أرفضل الاطلاع أولاً'],
+        askName: `رائع! 😊 أخبرني باسمك الكريم لأتمكن من تقديم خدمة شخصية لك:`,
+        askPhone: (name) => `تشرفنا بمعرفتك ${name}! 📱\nما هو رقم هاتفك للتواصل معك وإرسال التفاصيل الكاملة؟`,
+        askPayment: `شكراً جزيلاً! 💳 آخر سؤال — كيف تخطط للدفع؟`,
+        paymentOptions: ['💵 كاش (الدفع الفوري)', '🏦 تمويل بنكي', '📅 أقساط مباشرة من الشركة', '🤔 لم أقرر بعد'],
+        qualified: (name, project) => `✅ <strong>شكراً ${name}!</strong> تم تسجيل معلوماتك.<br><br>قريباً سيتواصل معك خبراؤنا لتقديم عرض مخصص لـ <strong>${project}</strong>.<br><br>يمكنك التواصل معنا الآن مباشرةً:`,
+        fallbackKw: { price: ['سعر', 'سعره', 'كم', 'التكلفة', 'تكلف', 'بكام', 'ثمن'], finance: ['تقسيط', 'قسط', 'تمويل', 'أقساط', 'بنك', 'دفع'], location: ['موقع', 'مكان', 'وين', 'فين', 'أين', 'منطقة', 'خريطة'], pdf: ['pdf', 'ملف', 'عرض', 'تفاصيل', 'برينت'], contact: ['تواصل', 'اتصال', 'واتساب', 'whatsapp', 'رقم'] },
+        projectIntro: (p) => `🏗️ <strong>${p.name}</strong>\n📍 ${p.location}\n💰 ${p.price}\n\n${p.desc}\n\n<a href="${p.url}" style="color:var(--primary);font-weight:700;">← عرض تفاصيل المشروع كاملة</a>`,
+        allProjects: `إليك مشاريعنا الحالية، اختر ما يناسبك:`,
+        notUnderstood: [`حسناً، دعني أساعدك بشكل أفضل. هل تودّ رؤية مشاريعنا المتاحة؟`, `ممتاز! يبدو أنك مهتم بالاستثمار العقاري. هل تريد الاطلاع على أفضل خياراتنا؟`, `بالتأكيد! سأحرص على تقديم المعلومات الأنسب لك. هل ميزانيتك محددة؟`],
+        mortgageTitle: '🧮 حاسبة الأقساط (بدون فوائد)',
+        mortgageSliderLabel: 'اختر دفعتك الأولى:',
+        mortgageDown: 'الدفعة الأولى:',
+        mortgageResult: 'القسط السنوي (5 سنوات):',
+        mortgageCurrency: 'دينار',
+    },
+    en: {
+        greeting: `Hello! 👋 I'm <strong>Hussban Invest</strong>'s AI Sales Assistant.\nI'm here to help you find your perfect property at the best prices! 🏠\n\nAre you interested in:`,
+        greetingOptions: ['🏡 Buying a home', '💰 Real estate investment', '📋 Inquiring about a specific project'],
+        askBudget: `Great! 💼 To better assist you, what is your budget range?`,
+        budgetOptions: ['Under JOD 100,000', 'JOD 100,000 - 300,000', 'Over JOD 300,000', 'Flexible / Want to explore first'],
+        askName: `Wonderful! 😊 Please share your name so I can provide you with personalized service:`,
+        askPhone: (name) => `Pleased to meet you, ${name}! 📱\nWhat is your phone number so we can contact you and send full details?`,
+        askPayment: `Thank you! 💳 One last question — how are you planning to pay?`,
+        paymentOptions: ['💵 Cash (immediate payment)', '🏦 Bank financing', '📅 Direct installments from company', '🤔 Haven\'t decided yet'],
+        qualified: (name, project) => `✅ <strong>Thank you, ${name}!</strong> Your information has been recorded.<br><br>Our experts will contact you shortly with a customized offer for <strong>${project}</strong>.<br><br>You can also reach us directly now:`,
+        fallbackKw: { price: ['price', 'cost', 'how much', 'expensive', 'cheap', 'value'], finance: ['installment', 'mortgage', 'finance', 'payment', 'bank', 'loan'], location: ['location', 'where', 'map', 'area', 'address', 'place'], pdf: ['pdf', 'file', 'quote', 'details', 'brochure'], contact: ['contact', 'call', 'whatsapp', 'phone', 'reach'] },
+        projectIntro: (p) => `🏗️ <strong>${p.name}</strong>\n📍 ${p.location}\n💰 ${p.price}\n\n${p.desc}\n\n<a href="${p.url}" style="color:var(--primary);font-weight:700;">← View full project details</a>`,
+        allProjects: `Here are our current projects — choose what suits you:`,
+        notUnderstood: [`Let me help you better. Would you like to see our available projects?`, `Sounds interesting! Are you looking for residential or investment properties?`, `Of course! I'll make sure to find you the best options. Do you have a specific budget in mind?`],
+        mortgageTitle: '🧮 Installment Calculator (0% interest)',
+        mortgageSliderLabel: 'Select your down payment:',
+        mortgageDown: 'Down Payment:',
+        mortgageResult: 'Annual Installment (5 yrs):',
+        mortgageCurrency: 'JOD',
+    }
 };
 
 /* ─── i18n Translations ─── */
@@ -81,7 +157,7 @@ const TRANSLATIONS = {
         victoria_name: 'Victoria Villas Compound', victoria_loc: 'Airport Road, Amman',
         victoria_desc: 'Independent villas with modern designs at a prime strategic location',
         yasmina_name: 'Yasmina Residence Compound', yasmina_loc: 'Jordan',
-        yasmina_desc: 'An upscale residential compound combining elegance and comfort in a complete environment',
+        yasmina_desc: 'An upscale residential compound combining elegance and comfort',
         mafrak_name: 'Jordan Villas - Mafraq', mafrak_loc: 'Mafraq, Jordan',
         mafrak_desc: 'Exceptional investment opportunity at competitive prices in northern Jordan',
         mafrak_price: 'From <strong>JOD 48,000</strong>',
@@ -91,7 +167,7 @@ const TRANSLATIONS = {
         prev_name: 'International Projects', prev_loc: 'Turkey & Beyond',
         prev_desc: 'A track record of successful projects in distinguished international markets',
         comm_name: 'Commercial Projects', comm_loc: 'Jordan',
-        comm_desc: 'Commercial and investment opportunities in diverse sectors with attractive returns',
+        comm_desc: 'Commercial and investment opportunities in diverse sectors',
         price_from: 'From', price_contact: 'Contact for Prices',
         ai_badge: 'AI Powered', ai_title: 'Chat with Our AI Assistant',
         ai_desc: 'Get instant answers, custom quotes, and project details — now in your language',
@@ -103,11 +179,11 @@ const TRANSLATIONS = {
         feat_badge: 'Why Us?', feat_title: 'Features That Make Us The Best Choice',
         feat1_t: '24/7 Smart Assistant', feat1_d: 'Works around the clock in Arabic and English to analyze your needs and present the best offers instantly',
         feat2_t: 'Instant PDF Quotes', feat2_d: 'Get a detailed, print-ready price offer in seconds with all unit specifications',
-        feat3_t: 'Direct WhatsApp Connect', feat3_d: 'After the conversation, your data is sent directly to the sales team via WhatsApp with one tap',
-        feat4_t: 'Financing Calculator', feat4_d: 'Calculate your monthly installment and down payment interactively for any project you choose',
+        feat3_t: 'Direct WhatsApp Connect', feat3_d: 'After the conversation, your data is sent directly to the sales team via WhatsApp',
+        feat4_t: 'Financing Calculator', feat4_d: 'Calculate your monthly installment and down payment interactively for any project',
         feat5_t: 'QR Per Project', feat5_d: 'Scan the code to get full project details anytime from your device',
-        feat6_t: 'Safe & Trusted Investment', feat6_d: '15+ years of experience in the Jordanian and international real estate market with a strong track record',
-        footer_tagline: 'Your trusted real estate partner in Jordan and beyond for safe and profitable investment',
+        feat6_t: 'Safe & Trusted Investment', feat6_d: '15+ years of experience in Jordan and international real estate markets',
+        footer_tagline: 'Your trusted real estate partner in Jordan and beyond',
         footer_projects: 'Our Projects', footer_contact: 'Contact Us',
         footer_location: 'Amman, Jordan', footer_rights: 'All rights reserved.',
         welcome: 'Welcome! 👋 I\'m <strong>Hussban Invest</strong>\'s AI Assistant. I\'m happy to help you find the perfect property. How can I assist you today?',
@@ -119,11 +195,10 @@ const TRANSLATIONS = {
 let currentLang = 'ar';
 let isDarkMode = true;
 let isAudioEnabled = true;
+let convState = CONV_STATES.GREETING;
+let leadData = { name: '', phone: '', interest: '', budget: '', payment: '', score: 'COLD' };
+let notUnderstoodIdx = 0;
 let dynamicProjects = [];
-let SYSTEM_PROMPT = '';
-let conversationHistory = [];
-let seenManusIds = new Set();
-let currentLeadState = { name:'PENDING', phone_number:'PENDING', property_type:'PENDING', payment_method:'PENDING', financing_entity:'PENDING', financing_duration:'PENDING', down_payment:'PENDING', score:'COLD' };
 
 /* ─── DOM Elements ─── */
 const chatMessages = document.getElementById('chat-messages');
@@ -135,55 +210,49 @@ const voiceSynthBtn = document.getElementById('voice-synthesis-btn');
 const voiceInputBtn = document.getElementById('voice-btn');
 const langBtn = document.getElementById('lang-btn');
 const langLabel = document.getElementById('lang-label');
-const jsonOutput = document.getElementById('json-output');
 const navMenu = document.getElementById('nav-menu');
 const hamburger = document.getElementById('hamburger');
 const quickReplies = document.getElementById('quick-replies');
 
-/* ─── Language System ─── */
+/* ─── Language ─── */
 function applyTranslations() {
     const t = TRANSLATIONS[currentLang];
     document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (t[key] !== undefined) el.innerHTML = t[key];
+        const k = el.getAttribute('data-i18n');
+        if (t[k] !== undefined) el.innerHTML = t[k];
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (t[key] !== undefined) el.placeholder = t[key];
+        const k = el.getAttribute('data-i18n-placeholder');
+        if (t[k] !== undefined) el.placeholder = t[k];
     });
     document.documentElement.setAttribute('lang', currentLang);
     document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-    langLabel.textContent = currentLang === 'ar' ? 'EN' : 'عر';
+    if (langLabel) langLabel.textContent = currentLang === 'ar' ? 'EN' : 'عر';
 }
-
-langBtn.addEventListener('click', () => {
+if (langBtn) langBtn.addEventListener('click', () => {
     currentLang = currentLang === 'ar' ? 'en' : 'ar';
     applyTranslations();
-    buildSystemPrompt();
     renderQuickReplies();
 });
 
-/* ─── Theme System ─── */
-themeBtn.addEventListener('click', () => {
+/* ─── Theme ─── */
+if (themeBtn) themeBtn.addEventListener('click', () => {
     isDarkMode = !isDarkMode;
     document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    themeIcon.className = isDarkMode ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    if (themeIcon) themeIcon.className = isDarkMode ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 });
 
-/* ─── Navbar scroll & hamburger ─── */
+/* ─── Navbar ─── */
 window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    const nb = document.getElementById('navbar');
+    if (nb) nb.classList.toggle('scrolled', window.scrollY > 20);
 });
-hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('open');
-});
-navMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navMenu.classList.remove('open'));
-});
+if (hamburger) hamburger.addEventListener('click', () => navMenu && navMenu.classList.toggle('open'));
+if (navMenu) navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
 
 /* ─── Intersection Observer Animations ─── */
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
         if (entry.isIntersecting) {
             const delay = entry.target.getAttribute('data-delay') || 0;
             setTimeout(() => entry.target.classList.add('animated'), parseInt(delay));
@@ -199,78 +268,52 @@ document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let W, H, particles = [];
-
-    function resize() {
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-    }
-
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
     function init() {
-        resize();
-        particles = [];
-        for (let i = 0; i < 70; i++) {
-            particles.push({
-                x: Math.random() * W, y: Math.random() * H,
-                r: Math.random() * 1.5 + 0.3,
-                dx: (Math.random() - 0.5) * 0.3,
-                dy: (Math.random() - 0.5) * 0.3,
-                alpha: Math.random() * 0.5 + 0.1
-            });
-        }
+        resize(); particles = [];
+        for (let i = 0; i < 70; i++) particles.push({
+            x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.5+0.3,
+            dx: (Math.random()-0.5)*0.3, dy: (Math.random()-0.5)*0.3, alpha: Math.random()*0.5+0.1
+        });
     }
-
     function draw() {
-        ctx.clearRect(0, 0, W, H);
-        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-        const color = isDark ? '0,201,212' : '0,127,136';
+        ctx.clearRect(0,0,W,H);
+        const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+        const c = dark ? '0,201,212' : '0,127,136';
         particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${color},${p.alpha})`;
-            ctx.fill();
-            p.x += p.dx; p.y += p.dy;
-            if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-            if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle = `rgba(${c},${p.alpha})`; ctx.fill();
+            p.x+=p.dx; p.y+=p.dy;
+            if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
         });
-        // Draw subtle connections
-        particles.forEach((p, i) => {
-            particles.slice(i + 1).forEach(q => {
-                const d = Math.hypot(p.x - q.x, p.y - q.y);
-                if (d < 120) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-                    ctx.strokeStyle = `rgba(${color},${0.05 * (1 - d / 120)})`;
-                    ctx.lineWidth = 0.6;
-                    ctx.stroke();
-                }
-            });
-        });
+        particles.forEach((p,i)=>{ particles.slice(i+1).forEach(q=>{
+            const d=Math.hypot(p.x-q.x,p.y-q.y);
+            if(d<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(${c},${0.04*(1-d/120)})`;ctx.lineWidth=0.5;ctx.stroke();}
+        }); });
         requestAnimationFrame(draw);
     }
     window.addEventListener('resize', init);
     init(); draw();
 })();
 
-/* ─── Speech Synthesis ─── */
-voiceSynthBtn.addEventListener('click', () => {
+/* ─── Speech ─── */
+if (voiceSynthBtn) voiceSynthBtn.addEventListener('click', () => {
     isAudioEnabled = !isAudioEnabled;
     voiceSynthBtn.classList.toggle('active', isAudioEnabled);
     voiceSynthBtn.querySelector('i').className = isAudioEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
     if (!isAudioEnabled) window.speechSynthesis.cancel();
 });
-
 function speakText(text) {
-    if (!isAudioEnabled) return;
-    const plain = text.replace(/<[^>]*>/gm, '').replace(/[\u2700-\u27BF\uE000-\uF8FF\uFE00-\uFE0F\u2100-\u26FF]+/g, '');
+    if (!isAudioEnabled || !window.speechSynthesis) return;
+    const plain = text.replace(/<[^>]*>/gm,'').replace(/[^\u0000-\u007E\u0600-\u06FF\u0750-\u077F]/g,'');
+    if (!plain.trim()) return;
     const utt = new SpeechSynthesisUtterance(plain);
     utt.lang = currentLang === 'ar' ? 'ar-SA' : 'en-US';
-    utt.rate = 1.05; utt.pitch = 1;
+    utt.rate = 1.1; utt.pitch = 1;
     window.speechSynthesis.speak(utt);
 }
-
-/* ─── Voice Input ─── */
 const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-if (SpeechRec) {
+if (SpeechRec && voiceInputBtn) {
     const recognition = new SpeechRec();
     recognition.interimResults = false;
     voiceInputBtn.addEventListener('click', () => {
@@ -278,26 +321,21 @@ if (SpeechRec) {
         voiceInputBtn.classList.add('recording');
         recognition.start();
     });
-    recognition.onresult = e => {
-        userInput.value = e.results[0][0].transcript;
-        voiceInputBtn.classList.remove('recording');
-        sendMessage();
-    };
-    recognition.onerror = () => voiceInputBtn.classList.remove('recording');
-} else {
-    voiceInputBtn.style.display = 'none';
-}
+    recognition.onresult = e => { userInput.value = e.results[0][0].transcript; voiceInputBtn.classList.remove('recording'); sendMessage(); };
+    recognition.onerror = () => voiceInputBtn && voiceInputBtn.classList.remove('recording');
+} else if (voiceInputBtn) { voiceInputBtn.style.display = 'none'; }
 
 /* ─── Quick Replies ─── */
-function renderQuickReplies() {
+function renderQuickReplies(options) {
     if (!quickReplies) return;
-    const t = TRANSLATIONS[currentLang];
     quickReplies.innerHTML = '';
-    (t.qr_projects || []).forEach(label => {
+    const items = options || TRANSLATIONS[currentLang].qr_projects;
+    items.forEach(label => {
         const btn = document.createElement('button');
         btn.className = 'quick-btn';
         btn.textContent = label;
         btn.addEventListener('click', () => {
+            quickReplies.innerHTML = '';
             userInput.value = label;
             sendMessage();
         });
@@ -307,279 +345,307 @@ function renderQuickReplies() {
 
 /* ─── Message Display ─── */
 function addMessage(html, type) {
+    if (!chatMessages) return;
     const div = document.createElement('div');
     div.className = `message ${type}`;
-    div.innerHTML = html;
+    div.innerHTML = html.replace(/\n/g, '<br>');
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
     if (type === 'bot-msg') speakText(html);
 }
-
 function showTyping() {
     removeTyping();
     const div = document.createElement('div');
     div.className = 'typing-indicator'; div.id = 'typing-ind';
     div.innerHTML = '<span></span><span></span><span></span>';
     div.style.display = 'inline-block';
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    if (chatMessages) { chatMessages.appendChild(div); chatMessages.scrollTop = chatMessages.scrollHeight; }
 }
-function removeTyping() {
-    const el = document.getElementById('typing-ind');
-    if (el) el.remove();
-}
-
-/* ─── CSV Parser ─── */
-function parseCSV(str) {
-    const arr = []; let quote = false;
-    for (let row = 0, col = 0, c = 0; c < str.length; c++) {
-        let cc = str[c], nc = str[c+1];
-        arr[row] = arr[row] || []; arr[row][col] = arr[row][col] || '';
-        if (cc === '"' && quote && nc === '"') { arr[row][col] += cc; ++c; continue; }
-        if (cc === '"') { quote = !quote; continue; }
-        if (cc === ',' && !quote) { ++col; continue; }
-        if ((cc === '\r' && nc === '\n' && !quote) || (cc === '\n' && !quote) || (cc === '\r' && !quote)) {
-            ++row; col = 0; if (cc === '\r' && nc === '\n') ++c; continue;
-        }
-        arr[row][col] += cc;
-    }
-    return arr;
+function removeTyping() { const el = document.getElementById('typing-ind'); if (el) el.remove(); }
+function botReply(html, options, delay) {
+    const d = delay || Math.random() * (CONFIG.TYPING_DELAY_MAX - CONFIG.TYPING_DELAY_MIN) + CONFIG.TYPING_DELAY_MIN;
+    showTyping();
+    setTimeout(() => {
+        removeTyping();
+        addMessage(html, 'bot-msg');
+        if (options && options.length > 0) renderQuickReplies(options);
+        else if (quickReplies) quickReplies.innerHTML = '';
+    }, d);
 }
 
-/* ─── System Prompt Builder ─── */
-function buildSystemPrompt() {
-    const lang = currentLang;
-    const projectsKB = dynamicProjects.map(p =>
-        `- ${lang === 'ar' ? 'اسم المشروع' : 'Project'}: ${p.name} | ${lang === 'ar' ? 'النوع' : 'Type'}: ${p.type} | ${lang === 'ar' ? 'السعر' : 'Price'}: ${p.price} | ${lang === 'ar' ? 'الوصف' : 'Desc'}: ${p.desc}`
-    ).join('\n');
-
-    if (lang === 'ar') {
-        SYSTEM_PROMPT = `أنت مساعد مبيعات عقاري ذكي واحترافي لشركة "الحسبان للتطوير العقاري" (Hussban Invest).
-هدفك: تأهيل العملاء المحتملين وتزويدهم بأفضل العروض العقارية.
-مشاريعنا المتاحة:
-${projectsKB}
-
-قواعد المحادثة:
-- استخدم اللغة العربية الفصيحة والودودة
-- اسأل عن: الاسم، رقم الهاتف، نوع العقار المطلوب، طريقة الدفع (كاش/تمويل/أقساط)
-- صنّف العملاء: HOT (مستعد للشراء الآن)، WARM (مهتم)، COLD (مجرد استفسار)
-- عند اكتمال البيانات، اطبع JSON فقط: { "name": "...", "phone_number": "...", "property_type": "...", "payment_method": "...", "score": "HOT/WARM/COLD" }
-- لا تتحدث عن منافسين
-- قدّم حاسبة الأقساط عند الطلب`;
-    } else {
-        SYSTEM_PROMPT = `You are a professional AI real estate sales assistant for "Hussban Invest".
-Goal: Qualify potential leads and provide the best real estate offers.
-Available Projects:
-${projectsKB}
-
-Rules:
-- Use professional and friendly English
-- Ask for: name, phone number, desired property type, payment method (cash/financing/installments)
-- Score leads: HOT (ready to buy now), WARM (interested), COLD (just inquiring)
-- When data complete, print ONLY JSON: { "name": "...", "phone_number": "...", "property_type": "...", "payment_method": "...", "score": "HOT/WARM/COLD" }
-- Don't mention competitors
-- Offer mortgage calculator when relevant`;
-    }
-}
-
-/* ─── Fetch DB ─── */
-async function fetchProjectsDB() {
-    try {
-        // Try direct first, then CORS proxy
-        let csvText;
-        try {
-            const r = await fetch(CONFIG.DATABASE_URL, { cache: 'no-store' });
-            if (!r.ok) throw new Error('direct failed');
-            csvText = await r.text();
-        } catch {
-            const r = await fetch(CONFIG.CORS_PROXY + encodeURIComponent(CONFIG.DATABASE_URL));
-            csvText = await r.text();
-        }
-        const rows = parseCSV(csvText);
-        dynamicProjects = [];
-        for (let i = 1; i < rows.length; i++) {
-            if (rows[i] && rows[i].length >= 3 && rows[i][0].trim()) {
-                dynamicProjects.push({ name: rows[i][0], type: rows[i][1], price: rows[i][2], desc: rows[i][3] || '', map: rows[i][4] || '' });
-            }
-        }
-    } catch {
-        dynamicProjects = [
-            { name: 'كمباوند فلل فيكتوريا', type: 'فلل مستقلة', price: '260,000 دينار', desc: 'طريق المطار', map: '' },
-            { name: 'كمباوند ياسمينا ريزدنس', type: 'شقق وفلل', price: 'تواصل للأسعار', desc: 'موقع متميز', map: '' },
-            { name: 'كمباوند فلل الأردن - المفرق', type: 'فلل وشقق تجارية', price: '48,000 دينار', desc: 'فرصة استثمارية', map: '' },
-            { name: 'فلل دابوق الفاخرة', type: 'فلل فخمة 500م', price: '850,000 دينار', desc: 'تشطيب حصري', map: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13538.52042145!2d35.8118012!3d31.9701018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca11aaef838b9%3A0x9bbd8b52eb4bff8!2sDabouq%2C%20Amman!5e0!3m2!1sen!2sjo!4v1700000000000' },
-            { name: 'المشاريع السابقة خارج الأردن', type: 'مشاريع دولية', price: 'متنوعة', desc: 'تركيا وخارجها', map: '' },
-            { name: 'المشاريع التجارية', type: 'تجاري', price: 'تواصل للأسعار', desc: 'استثمار تجاري', map: '' },
-        ];
-    }
-    buildSystemPrompt();
-}
-
-/* ─── WhatsApp Integration ─── */
-function sendToWhatsApp(data) {
-    const t = TRANSLATIONS[currentLang];
-    currentLeadState = { ...currentLeadState, ...data };
-    if (jsonOutput) jsonOutput.textContent = JSON.stringify(currentLeadState, null, 2);
-
-    const msg = currentLang === 'ar'
-        ? `🏢 *Hussban Invest - عميل جديد*\n\n👤 الاسم: ${data.name || 'غير محدد'}\n📞 الهاتف: ${data.phone_number || 'غير محدد'}\n🏠 المشروع: ${data.property_type || 'غير محدد'}\n💳 الدفع: ${data.payment_method || 'غير محدد'}\n🔥 التقييم: ${data.score || 'WARM'}`
-        : `🏢 *Hussban Invest - New Lead*\n\n👤 Name: ${data.name || 'N/A'}\n📞 Phone: ${data.phone_number || 'N/A'}\n🏠 Project: ${data.property_type || 'N/A'}\n💳 Payment: ${data.payment_method || 'N/A'}\n🔥 Score: ${data.score || 'WARM'}`;
-
-    const waUrl = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
-    const successMsg = currentLang === 'ar'
-        ? `✅ <strong>تم تسجيل بياناتك بنجاح!</strong><br>اختر ما تريد القيام به:<br><br>
-           <a href="${waUrl}" target="_blank" class="wa-confirm-btn"><i class="fa-brands fa-whatsapp"></i> تواصل عبر واتساب</a>
-           <button onclick="window.generatePDF()" class="pdf-btn"><i class="fa-solid fa-file-pdf"></i> تحميل عرض PDF</button>`
-        : `✅ <strong>Your data has been recorded!</strong><br>Choose what to do next:<br><br>
-           <a href="${waUrl}" target="_blank" class="wa-confirm-btn"><i class="fa-brands fa-whatsapp"></i> Contact via WhatsApp</a>
-           <button onclick="window.generatePDF()" class="pdf-btn"><i class="fa-solid fa-file-pdf"></i> Download PDF Quote</button>`;
-    addMessage(successMsg, 'bot-msg');
-}
-
-/* ─── PDF Generation ─── */
+/* ─── PDF Generator ─── */
 window.generatePDF = function() {
     const container = document.getElementById('pdf-container');
+    if (!container) return;
     container.style.display = 'block';
-    const data = currentLeadState;
     container.innerHTML = `
-        <div style="text-align:center;border-bottom:3px solid #00c9d4;padding-bottom:15px;margin-bottom:20px;">
-            <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" style="height:60px;margin:0 auto 10px;">
-            <h1 style="color:#0a0e1a;font-size:1.4rem;">${currentLang==='ar'?'الحسبان للتطوير العقاري':'Hussban Real Estate Development'}</h1>
-            <h3 style="color:#666;font-size:1rem;">${currentLang==='ar'?'عرض مالي مخصص':'Personalized Financial Quote'}</h3>
-        </div>
-        <table style="width:100%;border-collapse:collapse;text-align:right;">
-            <tr style="background:#f8f8f8;"><td style="padding:10px;border:1px solid #ddd;width:40%;"><strong>${currentLang==='ar'?'اسم العميل':'Client Name'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${data.name}</td></tr>
-            <tr><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'رقم الهاتف':'Phone Number'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${data.phone_number}</td></tr>
-            <tr style="background:#f8f8f8;"><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'المشروع المطلوب':'Property Interest'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${data.property_type}</td></tr>
-            <tr><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'طريقة الدفع':'Payment Method'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${data.payment_method}</td></tr>
-        </table>
-        <p style="margin-top:20px;font-size:0.85rem;color:#888;text-align:center;">Hussban Invest • +962 77 066 1862 • hussbaninvest.com</p>`;
-    const opt = { margin: 0.8, filename: 'Hussban_Quote.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }};
-    html2pdf().set(opt).from(container).save().then(() => { container.style.display = 'none'; });
+    <div style="text-align:center;border-bottom:3px solid #00c9d4;padding-bottom:15px;margin-bottom:20px;">
+        <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" style="height:60px;margin:0 auto 10px;display:block;">
+        <h1 style="color:#0a0e1a;font-size:1.4rem;">${currentLang==='ar'?'الحسبان للتطوير العقاري':'Hussban Real Estate Development'}</h1>
+        <h3 style="color:#666;font-size:1rem;">${currentLang==='ar'?'عرض مالي مخصص':'Personalized Financial Quote'}</h3>
+    </div>
+    <table style="width:100%;border-collapse:collapse;text-align:right;">
+        <tr style="background:#f8f8f8;"><td style="padding:10px;border:1px solid #ddd;width:40%;"><strong>${currentLang==='ar'?'الاسم':'Name'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${leadData.name||'—'}</td></tr>
+        <tr><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'الهاتف':'Phone'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${leadData.phone||'—'}</td></tr>
+        <tr style="background:#f8f8f8;"><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'الاهتمام':'Interest'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${leadData.interest||'—'}</td></tr>
+        <tr><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'الميزانية':'Budget'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${leadData.budget||'—'}</td></tr>
+        <tr style="background:#f8f8f8;"><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'طريقة الدفع':'Payment'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${leadData.payment||'—'}</td></tr>
+        <tr><td style="padding:10px;border:1px solid #ddd;"><strong>${currentLang==='ar'?'التقييم':'Score'}</strong></td><td style="padding:10px;border:1px solid #ddd;">${leadData.score}</td></tr>
+    </table>
+    <p style="margin-top:20px;font-size:0.85rem;color:#888;text-align:center;">Hussban Invest • +962 77 066 1862 • hussbaninvest.com</p>`;
+    const opt = { margin: 0.8, filename: 'Hussban_Quote.pdf', image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true}, jsPDF:{unit:'in',format:'a4',orientation:'portrait'}};
+    html2pdf().set(opt).from(container).save().then(()=>{ container.style.display='none'; });
 };
+
+/* ─── WhatsApp Dispatch ─── */
+function dispatchToWhatsApp() {
+    const b = BOT[currentLang];
+    const msg = currentLang === 'ar'
+        ? `🏢 *Hussban Invest — عميل جديد*\n\n👤 الاسم: ${leadData.name}\n📞 الهاتف: ${leadData.phone}\n🏠 الاهتمام: ${leadData.interest}\n💰 الميزانية: ${leadData.budget}\n💳 الدفع: ${leadData.payment}\n🔥 التقييم: ${leadData.score}`
+        : `🏢 *Hussban Invest — New Lead*\n\n👤 Name: ${leadData.name}\n📞 Phone: ${leadData.phone}\n🏠 Interest: ${leadData.interest}\n💰 Budget: ${leadData.budget}\n💳 Payment: ${leadData.payment}\n🔥 Score: ${leadData.score}`;
+    const waUrl = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
+    const html = `${b.qualified(leadData.name, leadData.interest)}<br><br>
+    <a href="${waUrl}" target="_blank" class="wa-confirm-btn"><i class="fa-brands fa-whatsapp"></i> ${currentLang==='ar'?'تواصل الآن':'Contact Now'}</a>
+    <button onclick="window.generatePDF()" class="pdf-btn"><i class="fa-solid fa-file-pdf"></i> PDF</button>`;
+    botReply(html, [], 800);
+}
 
 /* ─── Mortgage Calculator ─── */
 window.updateMortgage = function(val) {
-    document.getElementById('down-val').textContent = Number(val).toLocaleString();
-    const remaining = 260000 - Number(val);
-    document.getElementById('installment-val').textContent = remaining > 0 ? Math.round(remaining / 5).toLocaleString() : 0;
+    const dv = document.getElementById('down-val');
+    const iv = document.getElementById('installment-val');
+    if (dv) dv.textContent = Number(val).toLocaleString();
+    if (iv) { const rem = 260000 - Number(val); iv.textContent = rem > 0 ? Math.round(rem/5).toLocaleString() : 0; }
 };
 
-/* ─── AI Chat (Manus with CORS Proxy fallback) ─── */
-async function chatWithAI(userMessage) {
-    conversationHistory.push(`User: ${userMessage}`);
-    currentLeadState.score = 'WARM';
+/* ─── Project Cards HTML ─── */
+function buildProjectCard(proj) {
+    return `<a href="${proj.url}" style="display:inline-block;margin-top:8px;padding:8px 14px;background:var(--primary-dim);color:var(--primary);border:1px solid var(--border-glow);border-radius:50px;font-size:0.85rem;font-weight:700;text-decoration:none;">🏗 ${proj.name} ←</a>`;
+}
+function showAllProjects() {
+    const b = BOT[currentLang];
+    const allProjs = Object.values(PROJECTS_KB).map(p => p[currentLang]);
+    let html = b.allProjects + '<br><br>';
+    allProjs.forEach(p => { html += buildProjectCard(p) + ' '; });
+    botReply(html);
+}
 
-    const prompt = SYSTEM_PROMPT + '\n\n--- Conversation ---\n' + conversationHistory.join('\n') + '\n\nAgent:';
+/* ─── Keyword Detector ─── */
+function detectIntent(text) {
+    const t = text.toLowerCase();
+    const kw = BOT[currentLang].fallbackKw;
+    for (const [intent, words] of Object.entries(kw)) {
+        if (words.some(w => t.includes(w))) return intent;
+    }
+    const allProjKeys = Object.keys(PROJECTS_KB);
+    for (const key of allProjKeys) {
+        const pname = PROJECTS_KB[key][currentLang].name.toLowerCase();
+        if (t.includes(pname.split(' ')[0]) || t.includes(pname.split(' ')[1]||'__')) return 'project_' + key;
+    }
+    if (/مرحب|أهلا|هلا|سلام|hello|hi|hey/i.test(t)) return 'greet';
+    if (/شكر|thank/i.test(t)) return 'thanks';
+    return null;
+}
 
-    try {
-        const createRes = await fetch('https://api.manus.ai/v2/task.create', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-manus-api-key': CONFIG.MANUS_API_KEY },
-            body: JSON.stringify({ message: { content: prompt } }),
-        });
-        if (!createRes.ok) throw new Error('API error');
-        const taskData = await createRes.json();
-        const taskId = taskData.id || taskData.taskId || (taskData.data && taskData.data.taskId);
-        if (!taskId) throw new Error('No task ID');
-        pollManus(taskId);
-    } catch {
-        removeTyping();
-        const fallback = currentLang === 'ar'
-            ? '⚠️ عذراً، تعذّر الوصول لخدمة الذكاء الاصطناعي. يرجى التواصل معنا مباشرة.'
-            : '⚠️ Sorry, the AI service is temporarily unavailable. Please contact us directly.';
-        addMessage(fallback + `<br><a href="https://wa.me/${CONFIG.WHATSAPP}" target="_blank" class="wa-confirm-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>`, 'bot-msg');
+/* ─── MAIN Conversation Handler ─── */
+function handleUserMessage(text) {
+    const b = BOT[currentLang];
+    const t = text.trim();
+    const intent = detectIntent(t);
+
+    // Free keyword intents (regardless of state)
+    if (intent === 'greet' && convState !== CONV_STATES.GREETING) {
+        botReply(currentLang==='ar'?'أهلاً بك مجدداً! 😊 كيف يمكنني مساعدتك؟':'Welcome back! 😊 How can I help you?');
+        return;
+    }
+    if (intent === 'thanks') {
+        botReply(currentLang==='ar'?'العفو! يسعدني خدمتك دائماً. هل هناك شيء آخر أقدر أساعدك به؟':'You\'re welcome! I\'m always happy to help. Is there anything else I can assist you with?');
+        return;
+    }
+    if (intent === 'finance') {
+        const lbl = b.mortgageTitle;
+        const html = `<br><div class="mortgage-box"><h4>${b.mortgageTitle}</h4><p>${b.mortgageSliderLabel}</p><input type="range" min="20000" max="260000" step="5000" value="50000" class="mortgage-slider" oninput="updateMortgage(this.value)"><br>${b.mortgageDown} <strong id="down-val">50,000</strong> ${b.mortgageCurrency}<div class="mortgage-result">${b.mortgageResult} <span id="installment-val">42,000</span> ${b.mortgageCurrency}</div></div>`;
+        botReply(currentLang==='ar'?`يسعدني مساعدتك بخصوص خطط التمويل والتقسيط! 💳\nلدينا خيارات تمويل مرنة تشمل التمويل البنكي والتقسيط المباشر.${html}`:`I'd be happy to help with financing plans! 💳\nWe offer flexible financing options including bank financing and direct installments.${html}`);
+        return;
+    }
+    if (intent === 'pdf') {
+        if (leadData.name && leadData.phone) {
+            window.generatePDF();
+        } else {
+            botReply(currentLang==='ar'?'لإصدار العرض، أحتاج اسمك ورقم هاتفك أولاً. ما اسمك الكريم؟':'To generate the quote, I need your name and phone first. What\'s your name?');
+            convState = CONV_STATES.GET_NAME;
+        }
+        return;
+    }
+    if (intent === 'contact') {
+        const waUrl = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(currentLang==='ar'?'مرحباً، أريد الاستفسار':'Hello, I\'d like to inquire')}`;
+        botReply(currentLang==='ar'?`يمكنك التواصل معنا مباشرة:\n\n<a href="${waUrl}" target="_blank" class="wa-confirm-btn"><i class="fa-brands fa-whatsapp"></i> واتساب: +962 77 066 1862</a>`:`You can contact us directly:\n\n<a href="${waUrl}" target="_blank" class="wa-confirm-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp: +962 77 066 1862</a>`);
+        return;
+    }
+    if (intent && intent.startsWith('project_')) {
+        const key = intent.replace('project_', '');
+        const proj = PROJECTS_KB[key][currentLang];
+        let html = b.projectIntro(proj);
+        if (proj.mapUrl) html += `<div class="map-embed"><iframe src="${proj.mapUrl}" width="100%" height="150" style="border:0;" allowfullscreen loading="lazy"></iframe></div>`;
+        botReply(html, [currentLang==='ar'?'عرض السعر':'View Price', currentLang==='ar'?'حاسبة الأقساط':'Calc Installment', currentLang==='ar'?'تواصل واتساب':'WhatsApp']);
+        leadData.interest = proj.name;
+        leadData.score = 'WARM';
+        return;
+    }
+    if (intent === 'price') { showAllProjects(); return; }
+    if (intent === 'location') {
+        showAllProjects();
+        return;
+    }
+
+    // ── State Machine ──
+    switch (convState) {
+        case CONV_STATES.GREETING:
+            botReply(b.greeting, b.greetingOptions, 1500);
+            convState = CONV_STATES.GET_NEED;
+            break;
+
+        case CONV_STATES.GET_NEED:
+            leadData.interest = t;
+            if (/سكن|شراء|بيت|بيتي|للسكن|residential|home|buy|house/i.test(t)) {
+                leadData.score = 'WARM';
+            } else if (/استثمار|ربح|عائد|invest|return/i.test(t)) {
+                leadData.score = 'HOT';
+                leadData.interest = currentLang === 'ar' ? 'الاستثمار العقاري' : 'Real Estate Investment';
+            }
+            botReply(b.askBudget, b.budgetOptions);
+            convState = CONV_STATES.GET_BUDGET;
+            break;
+
+        case CONV_STATES.GET_BUDGET:
+            leadData.budget = t;
+            if (/أكثر|300|over|more/i.test(t)) { leadData.score = 'HOT'; }
+            else if (/100|200|مرن|flexible/i.test(t)) { leadData.score = 'WARM'; }
+            // Show matching projects
+            let matchHtml = '';
+            let matchCount = 0;
+            if (/أقل من 100|under 100|48|مفرق/i.test(t)) {
+                matchHtml = BOT[currentLang].projectIntro(PROJECTS_KB.mafrak[currentLang]);
+                matchCount++;
+            } else if (/300|850|دابوق|luxury|dabouq/i.test(t)) {
+                matchHtml = BOT[currentLang].projectIntro(PROJECTS_KB.dabouq[currentLang]);
+                matchCount++;
+            } else if (/100|260|فيكتوريا|victoria/i.test(t)) {
+                matchHtml = BOT[currentLang].projectIntro(PROJECTS_KB.victoria[currentLang]);
+                matchCount++;
+            }
+            if (matchHtml) {
+                const intro = currentLang === 'ar' ? 'ممتاز! بناءً على ميزانيتك، إليك المشروع الأنسب:\n\n' : 'Based on your budget, here\'s our best match:\n\n';
+                botReply(intro + matchHtml, [], 1200);
+                setTimeout(() => {
+                    botReply(b.askName, [], 1500);
+                    convState = CONV_STATES.GET_NAME;
+                }, 3200);
+            } else {
+                botReply(b.askName, [], 1200);
+                convState = CONV_STATES.GET_NAME;
+            }
+            break;
+
+        case CONV_STATES.GET_NAME:
+            if (t.length < 2) { botReply(currentLang==='ar'?'يرجى إدخال اسمك الكريم:':'Please enter your name:'); return; }
+            leadData.name = t.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            botReply(b.askPhone(leadData.name), [], 800);
+            convState = CONV_STATES.GET_PHONE;
+            break;
+
+        case CONV_STATES.GET_PHONE:
+            if (t.replace(/\D/g,'').length < 7) {
+                botReply(currentLang==='ar'?'يرجى إدخال رقم هاتف صحيح (على الأقل 7 أرقام):':'Please enter a valid phone number (at least 7 digits):');
+                return;
+            }
+            leadData.phone = t;
+            leadData.score = 'HOT';
+            botReply(b.askPayment, b.paymentOptions, 800);
+            convState = CONV_STATES.GET_PAYMENT;
+            break;
+
+        case CONV_STATES.GET_PAYMENT:
+            leadData.payment = t;
+            convState = CONV_STATES.QUALIFIED;
+            dispatchToWhatsApp();
+            break;
+
+        case CONV_STATES.QUALIFIED:
+        case CONV_STATES.FREE_CHAT:
+        default:
+            notUnderstoodIdx = (notUnderstoodIdx + 1) % b.notUnderstood.length;
+            botReply(b.notUnderstood[notUnderstoodIdx],
+                [currentLang==='ar'?'عرض المشاريع':'Show Projects',
+                 currentLang==='ar'?'حاسبة الأقساط':'Installment Calc',
+                 currentLang==='ar'?'تواصل واتساب':'WhatsApp']);
+            break;
     }
 }
 
-async function pollManus(taskId) {
-    let tries = 0;
-    const iv = setInterval(async () => {
-        tries++;
-        try {
-            const res = await fetch(`https://api.manus.ai/v2/task.listMessages?taskId=${taskId}`, {
-                headers: { 'Content-Type': 'application/json', 'x-manus-api-key': CONFIG.MANUS_API_KEY }
-            });
-            if (!res.ok) return;
-            const data = await res.json();
-            const messages = data.messages || (data.data && data.data.messages) || [];
-            for (const msg of messages) {
-                if (msg.role !== 'user' && !seenManusIds.has(msg.id)) {
-                    seenManusIds.add(msg.id);
-                    const aiText = msg.content || msg.message || '';
-                    if (aiText.includes('{') && aiText.includes('}')) {
-                        try {
-                            const match = aiText.match(/\{[\s\S]*?\}/);
-                            if (match) {
-                                const lead = JSON.parse(match[0]);
-                                if (lead && lead.name && lead.phone_number) {
-                                    removeTyping(); clearInterval(iv);
-                                    sendToWhatsApp(lead); return;
-                                }
-                            }
-                        } catch {}
-                    }
-                    if (aiText.trim().length > 0) {
-                        removeTyping(); clearInterval(iv);
-                        let formatted = aiText.replace(/\n/g, '<br>');
-                        // Inject map if project mentioned
-                        dynamicProjects.forEach(p => {
-                            if (p.name && formatted.includes(p.name) && p.map && p.map.length > 5) {
-                                formatted += `<div class="map-embed"><iframe src="${p.map}" width="100%" height="150" style="border:0;" allowfullscreen loading="lazy"></iframe></div>`;
-                            }
-                        });
-                        // Mortgage calculator
-                        if (/قسط|أقساط|تمويل|installment|financing/i.test(formatted)) {
-                            const lbl = currentLang === 'ar' ? ['حاسبة الأقساط (بدون فوائد)', 'اختر دفعتك الأولى:', 'الدفعة:', 'دينار', 'القسط السنوي (5 سنوات):', 'دينار/سنة'] : ['Installment Calculator (0% interest)', 'Choose your down payment:', 'Down Payment:', 'JOD', 'Annual Installment (5 years):', 'JOD/yr'];
-                            formatted += `<div class="mortgage-box"><h4>${lbl[0]}</h4><p>${lbl[1]}</p><input type="range" min="20000" max="260000" step="5000" value="50000" class="mortgage-slider" oninput="updateMortgage(this.value)"><br>${lbl[2]} <strong id="down-val">50,000</strong> ${lbl[3]}<div class="mortgage-result">${lbl[4]} <span id="installment-val">42,000</span> ${lbl[5]}</div></div>`;
-                        }
-                        addMessage(formatted, 'bot-msg');
-                        conversationHistory.push(`Agent: ${aiText}`);
-                        return;
-                    }
-                }
-            }
-            if (tries >= 40) { clearInterval(iv); removeTyping(); addMessage(currentLang === 'ar' ? '⚠️ انتهى وقت الانتظار. أرسل رسالتك مرة أخرى.' : '⚠️ Timeout. Please send your message again.', 'bot-msg'); }
-        } catch {}
-    }, 3000);
-}
-
 /* ─── Send Message ─── */
-async function sendMessage() {
+function sendMessage() {
+    if (!userInput) return;
     const text = userInput.value.trim();
     if (!text) return;
     addMessage(text, 'user-msg');
     userInput.value = '';
-    quickReplies.innerHTML = '';
-    showTyping();
-    await chatWithAI(text);
+    if (quickReplies) quickReplies.innerHTML = '';
+    handleUserMessage(text);
 }
-sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+if (userInput) userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+
+/* ─── CSV Parser (for Google Sheets) ─── */
+function parseCSV(str) {
+    const arr = []; let quote = false;
+    for (let row=0,col=0,c=0; c<str.length; c++) {
+        let cc=str[c],nc=str[c+1];
+        arr[row]=arr[row]||[]; arr[row][col]=arr[row][col]||'';
+        if(cc==='"'&&quote&&nc==='"'){arr[row][col]+=cc;++c;continue;}
+        if(cc==='"'){quote=!quote;continue;}
+        if(cc===','&&!quote){++col;continue;}
+        if((cc==='\r'&&nc==='\n'&&!quote)||(cc==='\n'&&!quote)||(cc==='\r'&&!quote)){++row;col=0;if(cc==='\r'&&nc==='\n')++c;continue;}
+        arr[row][col]+=cc;
+    }
+    return arr;
+}
+async function fetchProjectsDB() {
+    try {
+        let csvText;
+        try { const r=await fetch(CONFIG.DATABASE_URL,{cache:'no-store'}); if(!r.ok) throw 0; csvText=await r.text(); }
+        catch { const r=await fetch(CONFIG.CORS_PROXY+encodeURIComponent(CONFIG.DATABASE_URL)); csvText=await r.text(); }
+        const rows=parseCSV(csvText);
+        dynamicProjects=[];
+        for(let i=1;i<rows.length;i++){
+            if(rows[i]&&rows[i].length>=3&&rows[i][0].trim()){
+                dynamicProjects.push({name:rows[i][0],type:rows[i][1],price:rows[i][2],desc:rows[i][3]||'',map:rows[i][4]||''});
+            }
+        }
+    } catch {}
+}
 
 /* ─── Init ─── */
 window.addEventListener('load', async () => {
     applyTranslations();
     renderQuickReplies();
-    voiceSynthBtn.classList.add('active');
-
-    // Highlight active nav link
+    if (voiceSynthBtn) voiceSynthBtn.classList.add('active');
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
             link.classList.add('active');
         });
     });
-
     await fetchProjectsDB();
-
+    // Start conversation
     setTimeout(() => {
         showTyping();
         setTimeout(() => {
             removeTyping();
-            const welcome = TRANSLATIONS[currentLang].welcome;
-            addMessage(welcome, 'bot-msg');
-            conversationHistory.push(`Agent: ${welcome}`);
-        }, 1200);
-    }, 600);
+            const b = BOT[currentLang];
+            addMessage(b.greeting, 'bot-msg');
+            renderQuickReplies(b.greetingOptions);
+            convState = CONV_STATES.GET_NEED;
+        }, 1400);
+    }, 700);
 });
