@@ -1,156 +1,363 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hussban Invest - المساعد الذكي</title>
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Hussban Invest | الحسبان للتطوير العقاري</title>
+    <meta name="description" content="Hussban Invest - Premium Real Estate Developer in Jordan. Smart AI Sales Assistant available 24/7.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="#hero">الرئيسية</a></li>
-            <li><a href="#features">المميزات</a></li>
-            <li><a href="#about">من نحن</a></li>
-        </ul>
-        <div class="nav-actions">
-           <button class="nav-btn primary-btn-nav">احجز استشارة</button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
-        <div class="hero-container">
-            <div class="hero-content">
-                <span class="badge">المساعد الذكي العقاري الأول</span>
-                <h1 class="hero-title">استثمر بذكاء مع <br><span class="highlight">Hussban Invest</span></h1>
-                <p class="hero-subtitle">نقدم لك أفضل الفرص العقارية في إسطنبول عبر مساعدنا الذكي الذي يعمل بتقنية الذكاء الاصطناعي على مدار الساعة لتحليل متطلباتك وتقديم عروض PDF تفاعلية في ثوانٍ.</p>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <h3 class="stat-number">+100</h3>
-                        <p>مشروع فاخر</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 class="stat-number">24/7</h3>
-                        <p>استجابة فورية</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3 class="stat-number">PDF</h3>
-                        <p>عروض حية</p>
-                    </div>
+<!-- ─── Particle Background ─── -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- ─── Navbar ─── -->
+<nav class="navbar" id="navbar">
+    <div class="nav-brand">
+        <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Invest" class="nav-logo">
+    </div>
+    <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero" class="nav-link" data-i18n="nav_home">الرئيسية</a></li>
+        <li><a href="#projects-section" class="nav-link" data-i18n="nav_projects">المشاريع</a></li>
+        <li><a href="#assistant-section" class="nav-link" data-i18n="nav_assistant">المساعد الذكي</a></li>
+        <li><a href="#features" class="nav-link" data-i18n="nav_features">مميزاتنا</a></li>
+        <li><a href="#contact" class="nav-link" data-i18n="nav_contact">تواصل معنا</a></li>
+    </ul>
+    <div class="nav-actions">
+        <button class="lang-toggle" id="lang-btn" title="Switch Language">
+            <i class="fa-solid fa-globe"></i>
+            <span id="lang-label">EN</span>
+        </button>
+        <button class="theme-toggle-nav" id="theme-btn" title="Toggle Theme">
+            <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+        <a href="https://wa.me/00962770661862?text=مرحباً، أريد الاستفسار عن مشاريعكم العقارية" target="_blank" class="btn-whatsapp-nav">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span data-i18n="nav_whatsapp">واتساب</span>
+        </a>
+        <button class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ─── Hero Section ─── -->
+<section id="hero" class="hero-section">
+    <div class="hero-container">
+        <div class="hero-left" data-animate="fade-up">
+            <span class="hero-badge">
+                <i class="fa-solid fa-star"></i>
+                <span data-i18n="hero_badge">المطور العقاري الأفضل في الأردن</span>
+            </span>
+            <h1 class="hero-title">
+                <span data-i18n="hero_title1">استثمر بذكاء</span><br>
+                <span class="gradient-text" data-i18n="hero_title2">مع Hussban Invest</span>
+            </h1>
+            <p class="hero-subtitle" data-i18n="hero_subtitle">
+                مساعدنا الذكي يعمل 24/7 لتقديم أفضل الفرص العقارية في الأردن وخارجه — باللغتين العربية والإنجليزية.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#assistant-section" class="btn-primary">
+                    <i class="fa-solid fa-robot"></i>
+                    <span data-i18n="hero_cta1">جرّب المساعد الذكي</span>
+                </a>
+                <a href="#projects-section" class="btn-ghost">
+                    <i class="fa-solid fa-building"></i>
+                    <span data-i18n="hero_cta2">استعرض مشاريعنا</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-chip">
+                    <span class="stat-n gradient-text">+100</span>
+                    <span class="stat-l" data-i18n="stat1">مشروع فاخر</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-chip">
+                    <span class="stat-n gradient-text">24/7</span>
+                    <span class="stat-l" data-i18n="stat2">استجابة فورية</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-chip">
+                    <span class="stat-n gradient-text">15+</span>
+                    <span class="stat-l" data-i18n="stat3">سنة خبرة</span>
                 </div>
             </div>
-
-            <div class="hero-chat-wrapper">
-                <div class="chat-container">
+        </div>
+        <div class="hero-right" data-animate="fade-left">
+            <div class="chat-glass-wrapper">
+                <!-- Mini live preview of chat -->
+                <div class="chat-preview-badge">
+                    <span class="live-dot"></span>
+                    <span data-i18n="chat_live">متصل الآن</span>
+                </div>
+                <div class="chat-container" id="chat-container">
                     <div class="chat-header">
                         <div class="bot-info">
-                            <div class="bot-avatar" style="background-color: #fff;">
-                                <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Logo">
+                            <div class="bot-avatar">
+                                <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban">
                             </div>
                             <div class="bot-text-info">
-                                <h1>المساعد الذكي للمبيعات</h1>
-                                <p>Hussban Invest • متصل الآن</p>
+                                <h2 data-i18n="chat_title">المساعد الذكي للمبيعات</h2>
+                                <p><span class="online-dot"></span><span data-i18n="chat_status">Hussban Invest • متصل الآن</span></p>
                             </div>
                         </div>
-                        <div class="chat-header-actions">
-                            <button class="icon-btn theme-toggle" id="theme-btn" title="تغيير المظهر"><i class="fa-solid fa-moon"></i></button>
-                            <button class="icon-btn sound-toggle" id="voice-synthesis-btn" title="تفعيل/تعطيل نطق المساعد"><i class="fa-solid fa-volume-high"></i></button>
+                        <div class="chat-controls">
+                            <button class="ctrl-btn" id="voice-synthesis-btn" title="نطق الردود"><i class="fa-solid fa-volume-high"></i></button>
                         </div>
                     </div>
-
-                    <div class="chat-messages" id="chat-messages">
-                        <!-- سيتم إدراج الرسائل هنا برمجياً -->
-                    </div>
-
-                    <div class="chat-inputBox">
-                        <input type="text" id="user-input" placeholder="اكتب استفسارك هنا أو تحدث 🎤..." autocomplete="off">
-                        <button class="icon-btn" id="voice-btn" title="تحدث بالصوت"><i class="fa-solid fa-microphone"></i></button>
-                        <button class="icon-btn primary-btn" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    <div class="chat-messages" id="chat-messages"></div>
+                    <div class="quick-replies" id="quick-replies"></div>
+                    <div class="chat-input-area">
+                        <input type="text" id="user-input" data-i18n-placeholder="input_placeholder" placeholder="اكتب استفسارك..." autocomplete="off">
+                        <button class="mic-btn" id="voice-btn"><i class="fa-solid fa-microphone"></i></button>
+                        <button class="send-btn" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section id="features" class="features-section">
-        <div class="section-header">
-            <h2 class="section-title">لماذا تعتمد على مساعدنا الذكي؟</h2>
-            <p class="section-desc">أدوات متطورة تجعل رحلتك الاستثمارية في تركيا أكثر سهولة وأماناً.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon-wrapper"><i class="fa-solid fa-bolt feature-icon"></i></div>
-                <h3>استجابة ذكية 24/7</h3>
-                <p>لا تفوت أي فرصة. مساعدنا متاح دائماً لتحليل دقيق لمتطلباتك وتوجيهك لأفضل الخيارات العقارية.</p>
+<!-- ─── Projects Section ─── -->
+<section id="projects-section" class="projects-section">
+    <div class="section-header" data-animate="fade-up">
+        <span class="section-badge" data-i18n="proj_badge">مشاريعنا العقارية</span>
+        <h2 class="section-title" data-i18n="proj_title">اكتشف مشاريعنا الحصرية</h2>
+        <p class="section-desc" data-i18n="proj_desc">مجمعات سكنية راقية ومشاريع استثمارية متميزة في أفضل المواقع</p>
+    </div>
+    <div class="projects-grid">
+        <!-- Card 1: Victoria -->
+        <a href="./projects/victoria.html" class="project-card glass-card" data-animate="fade-up" data-delay="0">
+            <div class="card-image">
+                <div class="card-img-placeholder">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <div class="card-badge-type" data-i18n="badge_residential">سكني</div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon-wrapper"><i class="fa-solid fa-file-pdf feature-icon"></i></div>
-                <h3>ملفات PDF فورية</h3>
-                <p>احصل على عروض أسعار وتفاصيل المشاريع في ملفات بتصميم احترافي يتم توليدها وإرسالها لك في ثوانٍ.</p>
+            <div class="card-content">
+                <h3 class="card-title" data-i18n="victoria_name">كمباوند فلل فيكتوريا</h3>
+                <p class="card-location"><i class="fa-solid fa-location-dot"></i> <span data-i18n="victoria_loc">طريق المطار، عمّان</span></p>
+                <p class="card-desc" data-i18n="victoria_desc">فلل مستقلة بتصاميم عصرية في موقع استراتيجي متميز</p>
+                <div class="card-footer">
+                    <span class="card-price" data-i18n="price_from">يبدأ من <strong>260,000 دينار</strong></span>
+                    <span class="card-cta"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon-wrapper"><i class="fa-solid fa-calculator feature-icon"></i></div>
-                <h3>حاسبة العائد الاستثماري</h3>
-                <p>قم بضبط ميزانيتك، دفعتك الأولى، والمدة المطلوبة عبر حاسبة تفاعلية مدمجة للتمويل والعوائد الإيجارية.</p>
+        </a>
+        <!-- Card 2: Yasmina -->
+        <a href="./projects/yasmina.html" class="project-card glass-card" data-animate="fade-up" data-delay="100">
+            <div class="card-image">
+                <div class="card-img-placeholder">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div class="card-badge-type" data-i18n="badge_residential">سكني</div>
             </div>
-        </div>
-    </section>
+            <div class="card-content">
+                <h3 class="card-title" data-i18n="yasmina_name">كمباوند ياسمينا ريزدنس</h3>
+                <p class="card-location"><i class="fa-solid fa-location-dot"></i> <span data-i18n="yasmina_loc">الأردن</span></p>
+                <p class="card-desc" data-i18n="yasmina_desc">مجمع سكني راقٍ يجمع بين الأناقة والراحة في بيئة متكاملة</p>
+                <div class="card-footer">
+                    <span class="card-price" data-i18n="price_contact">تواصل للأسعار</span>
+                    <span class="card-cta"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
+            </div>
+        </a>
+        <!-- Card 3: Mafrak -->
+        <a href="./projects/mafrak.html" class="project-card glass-card" data-animate="fade-up" data-delay="200">
+            <div class="card-image">
+                <div class="card-img-placeholder">
+                    <i class="fa-solid fa-city"></i>
+                </div>
+                <div class="card-badge-type badge-invest" data-i18n="badge_invest">استثماري</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title" data-i18n="mafrak_name">كمباوند فلل الأردن - المفرق</h3>
+                <p class="card-location"><i class="fa-solid fa-location-dot"></i> <span data-i18n="mafrak_loc">المفرق، الأردن</span></p>
+                <p class="card-desc" data-i18n="mafrak_desc">فرصة استثمارية استثنائية بأسعار تنافسية في شمال الأردن</p>
+                <div class="card-footer">
+                    <span class="card-price" data-i18n="mafrak_price">يبدأ من <strong>48,000 دينار</strong></span>
+                    <span class="card-cta"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
+            </div>
+        </a>
+        <!-- Card 4: Dabouq -->
+        <a href="./projects/dabouq.html" class="project-card glass-card" data-animate="fade-up" data-delay="300">
+            <div class="card-image">
+                <div class="card-img-placeholder">
+                    <i class="fa-solid fa-gem"></i>
+                </div>
+                <div class="card-badge-type badge-luxury" data-i18n="badge_luxury">فاخر</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title" data-i18n="dabouq_name">فلل دابوق الفاخرة</h3>
+                <p class="card-location"><i class="fa-solid fa-location-dot"></i> <span data-i18n="dabouq_loc">دابوق، عمّان</span></p>
+                <p class="card-desc" data-i18n="dabouq_desc">فلل بحجم 500م² بتشطيبات حصرية في أرقى مناطق عمّان</p>
+                <div class="card-footer">
+                    <span class="card-price" data-i18n="dabouq_price">يبدأ من <strong>850,000 دينار</strong></span>
+                    <span class="card-cta"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
+            </div>
+        </a>
+        <!-- Card 5: Previous International -->
+        <a href="./projects/previous.html" class="project-card glass-card" data-animate="fade-up" data-delay="400">
+            <div class="card-image">
+                <div class="card-img-placeholder">
+                    <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <div class="card-badge-type badge-intl" data-i18n="badge_intl">دولي</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title" data-i18n="prev_name">مشاريعنا خارج الأردن</h3>
+                <p class="card-location"><i class="fa-solid fa-location-dot"></i> <span data-i18n="prev_loc">تركيا وخارجها</span></p>
+                <p class="card-desc" data-i18n="prev_desc">سجل من المشاريع الناجحة في أسواق دولية متميزة</p>
+                <div class="card-footer">
+                    <span class="card-price" data-i18n="price_contact">تواصل للأسعار</span>
+                    <span class="card-cta"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
+            </div>
+        </a>
+        <!-- Card 6: Commercial -->
+        <a href="./projects/commercial.html" class="project-card glass-card" data-animate="fade-up" data-delay="500">
+            <div class="card-image">
+                <div class="card-img-placeholder">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <div class="card-badge-type badge-commercial" data-i18n="badge_commercial">تجاري</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title" data-i18n="comm_name">المشاريع التجارية</h3>
+                <p class="card-location"><i class="fa-solid fa-location-dot"></i> <span data-i18n="comm_loc">الأردن</span></p>
+                <p class="card-desc" data-i18n="comm_desc">فرص تجارية واستثمارية في قطاعات متنوعة وعوائد مجزية</p>
+                <div class="card-footer">
+                    <span class="card-price" data-i18n="price_contact">تواصل للأسعار</span>
+                    <span class="card-cta"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Logo">
-                <p>شريكك العقاري الموثوق في إسطنبول للاستثمار الآمن والمربح.</p>
+<!-- ─── AI Assistant Full Section ─── -->
+<section id="assistant-section" class="assistant-section">
+    <div class="section-header" data-animate="fade-up">
+        <span class="section-badge" data-i18n="ai_badge">ذكاء اصطناعي</span>
+        <h2 class="section-title" data-i18n="ai_title">تحدث مع مساعدنا الذكي</h2>
+        <p class="section-desc" data-i18n="ai_desc">احصل على إجابات فورية، عروض مخصصة، وتفاصيل المشاريع — الآن وبلغتك</p>
+    </div>
+    <div class="assistant-full-wrapper" data-animate="fade-up">
+        <div class="assistant-tips glass-card">
+            <h3 data-i18n="tips_title">يمكنك أن تسألني عن:</h3>
+            <ul>
+                <li><i class="fa-solid fa-chevron-left"></i> <span data-i18n="tip1">أسعار المشاريع والوحدات المتاحة</span></li>
+                <li><i class="fa-solid fa-chevron-left"></i> <span data-i18n="tip2">خطط التمويل والتقسيط</span></li>
+                <li><i class="fa-solid fa-chevron-left"></i> <span data-i18n="tip3">مواقع المشاريع وخرائطها</span></li>
+                <li><i class="fa-solid fa-chevron-left"></i> <span data-i18n="tip4">طلب عرض PDF مخصص</span></li>
+                <li><i class="fa-solid fa-chevron-left"></i> <span data-i18n="tip5">حجز موعد استشارة مجانية</span></li>
+            </ul>
+            <div class="wa-direct-cta">
+                <p data-i18n="wa_direct">أو تواصل مباشرة عبر واتساب:</p>
+                <a href="https://wa.me/00962770661862" target="_blank" class="btn-whatsapp-full">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>+962 77 066 1862</span>
+                </a>
             </div>
-            <div class="footer-links">
-                <h3>روابط سريعة</h3>
-                <ul>
-                    <li><a href="#">المشاريع العقارية</a></li>
-                    <li><a href="#">مشاريع الجنسية التركية</a></li>
-                    <li><a href="#">استشارات مجانية</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h3>تواصل معنا</h3>
-                <p><i class="fa-solid fa-envelope"></i> info@hussbaninvest.com</p>
-                <p><i class="fa-brands fa-whatsapp"></i> +90 5XX XXX XX XX</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Hussban Invest. جميع الحقوق محفوظة.</p>
-        </div>
-    </footer>
-
-    <!-- Hidden json panel for n8n payload -->
-    <div class="json-panel hidden" style="display:none;">
-        <div class="panel-header">
-            <i class="fa-solid fa-server"></i>
-            <h2>لوحة تحكم البيانات (n8n Payload)</h2>
-        </div>
-        <div class="json-content">
-            <pre id="json-output">{
-  "status": "في انتظار بدء المحادثة..."
-}</pre>
         </div>
     </div>
-    
-    <audio id="ui-sound-sent" src="data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=" preload="auto"></audio>
-    <audio id="ui-sound-receive" src="data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=" preload="auto"></audio>
-    <div id="pdf-container" style="display:none; padding:20px; font-family:'Tajawal', sans-serif; text-align:right;" dir="rtl"></div>
-    <script src="./script.js"></script>
-</body>
+</section>
 
+<!-- ─── Features Section ─── -->
+<section id="features" class="features-section">
+    <div class="section-header" data-animate="fade-up">
+        <span class="section-badge" data-i18n="feat_badge">لماذا نحن؟</span>
+        <h2 class="section-title" data-i18n="feat_title">مميزات تجعلنا الخيار الأفضل</h2>
+    </div>
+    <div class="features-grid">
+        <div class="feature-glass-card" data-animate="fade-up" data-delay="0">
+            <div class="feat-icon-wrap"><i class="fa-solid fa-robot"></i></div>
+            <h3 data-i18n="feat1_t">مساعد ذكي 24/7</h3>
+            <p data-i18n="feat1_d">يعمل على مدار الساعة بالعربية والإنجليزية لتحليل احتياجاتك وتقديم أفضل العروض فوراً</p>
+        </div>
+        <div class="feature-glass-card" data-animate="fade-up" data-delay="100">
+            <div class="feat-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div>
+            <h3 data-i18n="feat2_t">عروض PDF فورية</h3>
+            <p data-i18n="feat2_d">احصل على عرض سعر مفصّل جاهز للطباعة في ثوانٍ مع جميع مواصفات الوحدة</p>
+        </div>
+        <div class="feature-glass-card" data-animate="fade-up" data-delay="200">
+            <div class="feat-icon-wrap"><i class="fa-brands fa-whatsapp"></i></div>
+            <h3 data-i18n="feat3_t">تواصل واتساب مباشر</h3>
+            <p data-i18n="feat3_d">بعد المحادثة تُرسل بياناتك مباشرةً لفريق المبيعات عبر واتساب بضغطة واحدة</p>
+        </div>
+        <div class="feature-glass-card" data-animate="fade-up" data-delay="300">
+            <div class="feat-icon-wrap"><i class="fa-solid fa-calculator"></i></div>
+            <h3 data-i18n="feat4_t">حاسبة التمويل</h3>
+            <p data-i18n="feat4_d">احسب قسطك الشهري والدفعة المبدئية تفاعلياً لأي مشروع تختاره</p>
+        </div>
+        <div class="feature-glass-card" data-animate="fade-up" data-delay="400">
+            <div class="feat-icon-wrap"><i class="fa-solid fa-qrcode"></i></div>
+            <h3 data-i18n="feat5_t">QR لكل مشروع</h3>
+            <p data-i18n="feat5_d">امسح الرمز للحصول على تفاصيل المشروع كاملة في أي وقت ومن جهازك</p>
+        </div>
+        <div class="feature-glass-card" data-animate="fade-up" data-delay="500">
+            <div class="feat-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3 data-i18n="feat6_t">استثمار آمن وموثوق</h3>
+            <p data-i18n="feat6_d">خبرة 15+ سنة في السوق العقاري الأردني والدولي مع سجل حافل من المشاريع الناجحة</p>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Contact / Footer ─── -->
+<footer id="contact" class="site-footer">
+    <div class="footer-top">
+        <div class="footer-brand">
+            <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Invest" class="footer-logo">
+            <p data-i18n="footer_tagline">شريكك العقاري الموثوق في الأردن وخارجه للاستثمار الآمن والمربح</p>
+            <div class="social-links">
+                <a href="https://wa.me/00962770661862" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="footer_projects">مشاريعنا</h4>
+            <ul>
+                <li><a href="./projects/victoria.html" data-i18n="victoria_name">كمباوند فلل فيكتوريا</a></li>
+                <li><a href="./projects/yasmina.html" data-i18n="yasmina_name">كمباوند ياسمينا ريزدنس</a></li>
+                <li><a href="./projects/mafrak.html" data-i18n="mafrak_name">كمباوند فلل المفرق</a></li>
+                <li><a href="./projects/dabouq.html" data-i18n="dabouq_name">فلل دابوق الفاخرة</a></li>
+                <li><a href="./projects/previous.html" data-i18n="prev_name">مشاريع خارج الأردن</a></li>
+                <li><a href="./projects/commercial.html" data-i18n="comm_name">المشاريع التجارية</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4 data-i18n="footer_contact">تواصل معنا</h4>
+            <div class="contact-item"><i class="fa-brands fa-whatsapp"></i><a href="https://wa.me/00962770661862">+962 77 066 1862</a></div>
+            <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:info@hussbaninvest.com">info@hussbaninvest.com</a></div>
+            <div class="contact-item"><i class="fa-solid fa-location-dot"></i><span data-i18n="footer_location">عمّان، الأردن</span></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Hussban Invest. <span data-i18n="footer_rights">جميع الحقوق محفوظة.</span></p>
+    </div>
+</footer>
+
+<!-- Hidden Elements -->
+<audio id="ui-sound-sent" preload="auto"></audio>
+<audio id="ui-sound-receive" preload="auto"></audio>
+<div id="pdf-container" style="display:none; padding:20px; font-family:'Tajawal', sans-serif; text-align:right;" dir="rtl"></div>
+<pre id="json-output" style="display:none;"></pre>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./script.js"></script>
+</body>
 </html>

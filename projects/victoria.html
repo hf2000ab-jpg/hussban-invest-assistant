@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كمباوند فلل فيكتوريا | Hussban Invest</title>
+    <meta name="description" content="كمباوند فلل فيكتوريا - فلل مستقلة راقية على طريق المطار، عمّان. تفاصيل المشروع والأسعار.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./project-base.css">
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close"><i class="fa-solid fa-xmark"></i></button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Gallery">
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+    <a href="../index.html" class="nav-back">
+        <i class="fa-solid fa-arrow-right"></i>
+        <span data-pi18n="back">← العودة للرئيسية</span>
+    </a>
+    <a href="../index.html"><img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban" class="nav-logo"></a>
+    <div class="nav-controls">
+        <button class="ctrl-mini lang-mini" id="lang-btn"><i class="fa-solid fa-globe"></i> <span id="lang-label">EN</span></button>
+        <button class="ctrl-mini" id="theme-btn"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+        <a href="https://wa.me/00962770661862?text=مرحباً، أريد الاستفسار عن كمباوند فلل فيكتوريا" target="_blank" class="btn-whatsapp" style="padding:0.45rem 1rem;font-size:0.85rem;">
+            <i class="fa-brands fa-whatsapp"></i> <span data-pi18n="whatsapp">واتساب</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Project Hero -->
+<section class="project-hero">
+    <div class="project-hero-bg"></div>
+    <div class="project-hero-content">
+        <a href="../index.html" class="project-back-btn"><i class="fa-solid fa-arrow-right"></i> <span data-pi18n="back">العودة للرئيسية</span></a>
+        <div class="project-type-badge"><i class="fa-solid fa-house-chimney"></i> <span data-pi18n="badge_residential">سكني فاخر</span></div>
+        <h1><span class="gradient-text">كمباوند فلل فيكتوريا</span></h1>
+        <div class="project-hero-meta">
+            <span class="project-meta-item"><i class="fa-solid fa-location-dot"></i> طريق المطار، عمّان</span>
+            <span class="project-meta-item"><i class="fa-solid fa-tag"></i> يبدأ من 260,000 دينار</span>
+            <span class="project-meta-item"><i class="fa-solid fa-building"></i> فلل مستقلة</span>
+        </div>
+        <div class="project-hero-cta">
+            <a href="#gallery-section" class="btn-primary"><i class="fa-solid fa-images"></i> <span data-pi18n="scroll_gallery">معرض الصور</span></a>
+            <a href="https://wa.me/00962770661862?text=أريد الاستفسار عن كمباوند فلل فيكتوريا" target="_blank" data-wa-link class="btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> <span data-pi18n="whatsapp">تواصل واتساب</span></a>
+            <a href="#details-section" class="btn-outline"><i class="fa-solid fa-list"></i> <span data-pi18n="scroll_details">التفاصيل</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="project-main">
+    <div class="project-grid">
+
+        <!-- Left: Gallery + Info -->
+        <div class="project-left">
+
+            <!-- Gallery -->
+            <section id="gallery-section" class="gallery-section" data-animate="fade-up">
+                <h2><i class="fa-solid fa-images"></i> <span data-pi18n="scroll_gallery">معرض الصور</span></h2>
+                <div class="swiper swiper-gallery">
+                    <div class="swiper-wrapper"></div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="swiper swiper-thumbs" style="margin-top:0.8rem;">
+                    <div class="swiper-wrapper"></div>
+                </div>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.7rem;text-align:center;"><i class="fa-solid fa-circle-info"></i> انقر على الصورة لعرضها بالحجم الكامل</p>
+            </section>
+
+            <!-- Description -->
+            <section id="details-section" class="info-section" data-animate="fade-up">
+                <h2><i class="fa-solid fa-circle-info"></i> نبذة عن المشروع</h2>
+                <div class="info-glass">
+                    <div class="empty-info">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <p>سيتم إضافة تفاصيل ووصف المشروع قريباً</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features List -->
+            <section class="info-section" data-animate="fade-up">
+                <h2><i class="fa-solid fa-star"></i> مميزات المشروع</h2>
+                <div class="info-glass">
+                    <div class="empty-info">
+                        <i class="fa-solid fa-list-check"></i>
+                        <p>سيتم إضافة قائمة المميزات قريباً</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Location -->
+            <section id="location-section" class="info-section" data-animate="fade-up">
+                <h2><i class="fa-solid fa-location-dot"></i> <span data-pi18n="scroll_location">الموقع</span></h2>
+                <div class="map-placeholder" id="map-container">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <p data-pi18n="map_empty">سيتم إضافة الخريطة قريباً</p>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Right: Sticky Panel -->
+        <aside class="project-right" data-animate="fade-left">
+            <div class="glass-panel" id="details-panel">
+                <h3 class="panel-title"><i class="fa-solid fa-tag"></i> <span data-pi18n="price_label">السعر يبدأ من</span></h3>
+                <div class="price-block">
+                    <div class="price-label" data-pi18n="price_label">السعر يبدأ من</div>
+                    <div class="price-value" id="project-price">260,000 دينار</div>
+                </div>
+
+                <div class="spec-grid" id="specs-grid">
+                    <div class="spec-item">
+                        <span class="spec-label"><i class="fa-solid fa-building"></i> نوع المشروع</span>
+                        <span class="spec-value">فلل مستقلة</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label"><i class="fa-solid fa-location-dot"></i> الموقع</span>
+                        <span class="spec-value">طريق المطار</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label"><i class="fa-solid fa-ruler-combined"></i> المساحة</span>
+                        <span class="spec-value empty">سيتم الإضافة</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label"><i class="fa-solid fa-bed"></i> الغرف</span>
+                        <span class="spec-value empty">سيتم الإضافة</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label"><i class="fa-solid fa-credit-card"></i> طريقة الدفع</span>
+                        <span class="spec-value empty">سيتم الإضافة</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label"><i class="fa-solid fa-calendar"></i> موعد التسليم</span>
+                        <span class="spec-value empty">سيتم الإضافة</span>
+                    </div>
+                </div>
+
+                <div class="cta-stack">
+                    <a href="https://wa.me/00962770661862?text=أريد الاستفسار عن كمباوند فلل فيكتوريا" target="_blank" data-wa-link class="btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> <span data-pi18n="whatsapp">تواصل واتساب</span>
+                    </a>
+                    <a href="tel:+962770661862" class="btn-outline">
+                        <i class="fa-solid fa-phone"></i> اتصل الآن
+                    </a>
+                </div>
+
+                <div class="qr-block">
+                    <h4 data-pi18n="qr_title">QR الصفحة</h4>
+                    <canvas id="qr-canvas"></canvas>
+                    <p data-pi18n="qr_desc">امسح للوصول لصفحة المشروع</p>
+                    <span class="qr-download"><i class="fa-solid fa-download"></i> <span data-pi18n="download_qr">تحميل QR</span></span>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Footer CTA -->
+<section class="project-footer-cta">
+    <h2 class="gradient-text" data-pi18n="cta_title">هل أنت مهتم بهذا المشروع؟</h2>
+    <p data-pi18n="cta_desc">تواصل معنا الآن للحصول على استشارة مجانية وعرض تفصيلي مخصص لك.</p>
+    <div class="cta-group">
+        <a href="https://wa.me/00962770661862?text=أريد الاستفسار عن كمباوند فلل فيكتوريا" target="_blank" class="btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> <span data-pi18n="whatsapp">تواصل عبر واتساب</span>
+        </a>
+        <a href="../index.html#assistant-section" class="btn-outline">
+            <i class="fa-solid fa-robot"></i> المساعد الذكي
+        </a>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./project-base.js"></script>
+<script>
+// ── Victoria Project Data ──
+const PROJECT_DATA = {
+    name: 'كمباوند فلل فيكتوريا',
+    nameEn: 'Victoria Villas Compound',
+    url: window.location.href,
+    images: [], // أضف روابط الصور هنا: ['url1','url2',...]
+    mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13554.498425121406!2d35.9149021!3d31.8624177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca79e4d588fa7%3A0x60f06bfefbf89be8!2sQueen%20Alia%20International%20Airport%20Road!5e0!3m2!1sen!2sjo!4v1700000000000',
+};
+
+function initProjectPage() {
+    // Gallery
+    initGallery(PROJECT_DATA.images);
+    // QR
+    generateQR(PROJECT_DATA.url, 'qr-canvas');
+    // WhatsApp links
+    setWhatsAppLinks(PROJECT_DATA.name);
+    // Map
+    if (PROJECT_DATA.mapUrl) {
+        const mapContainer = document.getElementById('map-container');
+        if (mapContainer) {
+            mapContainer.outerHTML = `<div class="map-frame"><iframe src="${PROJECT_DATA.mapUrl}" width="100%" height="320" style="border:0;" allowfullscreen loading="lazy"></iframe></div>`;
+        }
+    }
+}
+</script>
+</body>
+</html>
