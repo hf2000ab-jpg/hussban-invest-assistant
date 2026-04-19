@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hussban Invest - المساعد الذكي</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero">الرئيسية</a></li>
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#about">من نحن</a></li>
+        </ul>
+        <div class="nav-actions">
+           <button class="nav-btn primary-btn-nav">احجز استشارة</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="badge">المساعد الذكي العقاري الأول</span>
+                <h1 class="hero-title">استثمر بذكاء مع <br><span class="highlight">Hussban Invest</span></h1>
+                <p class="hero-subtitle">نقدم لك أفضل الفرص العقارية في إسطنبول عبر مساعدنا الذكي الذي يعمل بتقنية الذكاء الاصطناعي على مدار الساعة لتحليل متطلباتك وتقديم عروض PDF تفاعلية في ثوانٍ.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3 class="stat-number">+100</h3>
+                        <p>مشروع فاخر</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number">24/7</h3>
+                        <p>استجابة فورية</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number">PDF</h3>
+                        <p>عروض حية</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-chat-wrapper">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="bot-info">
+                            <div class="bot-avatar" style="background-color: #fff;">
+                                <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Logo">
+                            </div>
+                            <div class="bot-text-info">
+                                <h1>المساعد الذكي للمبيعات</h1>
+                                <p>Hussban Invest • متصل الآن</p>
+                            </div>
+                        </div>
+                        <div class="chat-header-actions">
+                            <button class="icon-btn theme-toggle" id="theme-btn" title="تغيير المظهر"><i class="fa-solid fa-moon"></i></button>
+                            <button class="icon-btn sound-toggle" id="voice-synthesis-btn" title="تفعيل/تعطيل نطق المساعد"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- سيتم إدراج الرسائل هنا برمجياً -->
+                    </div>
+
+                    <div class="chat-inputBox">
+                        <input type="text" id="user-input" placeholder="اكتب استفسارك هنا أو تحدث 🎤..." autocomplete="off">
+                        <button class="icon-btn" id="voice-btn" title="تحدث بالصوت"><i class="fa-solid fa-microphone"></i></button>
+                        <button class="icon-btn primary-btn" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2 class="section-title">لماذا تعتمد على مساعدنا الذكي؟</h2>
+            <p class="section-desc">أدوات متطورة تجعل رحلتك الاستثمارية في تركيا أكثر سهولة وأماناً.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-bolt feature-icon"></i></div>
+                <h3>استجابة ذكية 24/7</h3>
+                <p>لا تفوت أي فرصة. مساعدنا متاح دائماً لتحليل دقيق لمتطلباتك وتوجيهك لأفضل الخيارات العقارية.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-file-pdf feature-icon"></i></div>
+                <h3>ملفات PDF فورية</h3>
+                <p>احصل على عروض أسعار وتفاصيل المشاريع في ملفات بتصميم احترافي يتم توليدها وإرسالها لك في ثوانٍ.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrapper"><i class="fa-solid fa-calculator feature-icon"></i></div>
+                <h3>حاسبة العائد الاستثماري</h3>
+                <p>قم بضبط ميزانيتك، دفعتك الأولى، والمدة المطلوبة عبر حاسبة تفاعلية مدمجة للتمويل والعوائد الإيجارية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://hussbaninvest.com/wp-content/uploads/2023/10/Logo-sticky.png" alt="Hussban Logo">
+                <p>شريكك العقاري الموثوق في إسطنبول للاستثمار الآمن والمربح.</p>
+            </div>
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#">المشاريع العقارية</a></li>
+                    <li><a href="#">مشاريع الجنسية التركية</a></li>
+                    <li><a href="#">استشارات مجانية</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>تواصل معنا</h3>
+                <p><i class="fa-solid fa-envelope"></i> info@hussbaninvest.com</p>
+                <p><i class="fa-brands fa-whatsapp"></i> +90 5XX XXX XX XX</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Hussban Invest. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- Hidden json panel for n8n payload -->
+    <div class="json-panel hidden" style="display:none;">
+        <div class="panel-header">
+            <i class="fa-solid fa-server"></i>
+            <h2>لوحة تحكم البيانات (n8n Payload)</h2>
+        </div>
+        <div class="json-content">
+            <pre id="json-output">{
+  "status": "في انتظار بدء المحادثة..."
+}</pre>
+        </div>
+    </div>
+    
+    <audio id="ui-sound-sent" src="data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=" preload="auto"></audio>
+    <audio id="ui-sound-receive" src="data:audio/mp3;base64,//NExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqo=" preload="auto"></audio>
+    <div id="pdf-container" style="display:none; padding:20px; font-family:'Tajawal', sans-serif; text-align:right;" dir="rtl"></div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
