@@ -20,8 +20,8 @@ const PROJECTS_KB = {
         en: { name: 'Victoria Villas Compound', type: 'Independent Villas', price: 'JOD 260,000', location: 'Airport Road, Amman', desc: 'An upscale compound of independent villas on Airport Road featuring modern designs, expansive green spaces, and full family amenities.', url: './projects/victoria.html' }
     },
     yasmina: {
-        ar: { name: 'كمباوند ياسمينا ريزدنس', type: 'شقق وفلل', price: 'تواصل للأسعار', location: 'الأردن', desc: 'مجمع سكني متكامل يجمع بين الأناقة والراحة في بيئة هادئة ومتميزة، مع خدمات ومرافق على أعلى مستوى.', url: './projects/yasmina.html' },
-        en: { name: 'Yasmina Residence Compound', type: 'Apartments & Villas', price: 'Contact for pricing', location: 'Jordan', desc: 'A fully-integrated residential compound combining elegance and comfort in a peaceful, distinguished environment with top-tier services.', url: './projects/yasmina.html' }
+        ar: { name: 'كمباوند ياسمينا ريزدنس', type: 'قطع أراضي وفلل', price: '84,000 دينار', location: 'عمان، طريق المطار', desc: 'أكبر مشروع في الأردن يضم 275 فيلا. أقساط لمدة 48 شهر بدون فوائد مع إعفاء من رسوم التسجيل وخدمات متكاملة.', url: './projects/yasmina.html' },
+        en: { name: 'Yasmina Residence Compound', type: 'Plots & Villas', price: 'JOD 84,000', location: 'Amman, Airport Road', desc: 'The largest project in Jordan with 275 villas. 48-month interest-free installments, registration fee exemption, and full services.', url: './projects/yasmina.html' }
     },
     mafrak: {
         ar: { name: 'كمباوند فلل الأردن - المفرق', type: 'فلل وشقق', price: '48,000 دينار', location: 'المفرق، الأردن', desc: 'فرصة استثمارية متميزة في شمال الأردن بأسعار تنافسية مدروسة وعوائد إيجارية مجزية في موقع استراتيجي.', url: './projects/mafrak.html' },
@@ -32,12 +32,12 @@ const PROJECTS_KB = {
         en: { name: 'Dabouq Luxury Villas', type: '500m² Premium Villas', price: 'JOD 850,000', location: 'Dabouq, Amman', desc: 'Exclusive 500m² villas in Amman\'s most prestigious neighborhood featuring Italian finishes, private pools, and landscaped gardens.', url: './projects/dabouq.html' }
     },
     previous: {
-        ar: { name: 'المشاريع السابقة خارج الأردن', type: 'مشاريع دولية', price: 'متنوعة', location: 'تركيا وخارجها', desc: 'سجل حافل بالمشاريع الناجحة خارج الأردن بما فيها مشاريع في تركيا ودول أخرى بعوائد استثمارية ممتازة.', url: './projects/previous.html' },
-        en: { name: 'International Projects', type: 'International', price: 'Varied', location: 'Turkey & Beyond', desc: 'A strong track record of successful projects outside Jordan, including Turkey and other countries with excellent investment returns.', url: './projects/previous.html' }
+        ar: { name: 'مشاريع دولية', type: 'مشاريع سابقة', price: 'متنوعة', location: 'تركيا وخارجها', desc: 'سجل حافل بالمشاريع الناجحة خارج الأردن بما فيها مشاريع في تركيا ودول أخرى بعوائد استثمارية ممتازة.', url: './projects/previous.html' },
+        en: { name: 'International Projects', type: 'Past Projects', price: 'Varied', location: 'Turkey & Beyond', desc: 'A strong track record of successful projects outside Jordan, including Turkey and other countries with excellent investment returns.', url: './projects/previous.html' }
     },
     commercial: {
-        ar: { name: 'المشاريع التجارية', type: 'تجاري', price: 'تواصل للأسعار', location: 'الأردن', desc: 'فرص تجارية واستثمارية متميزة في قطاعات متنوعة تشمل المحلات التجارية والمكاتب والمستودعات بعوائد إيجارية مجزية.', url: './projects/commercial.html' },
-        en: { name: 'Commercial Projects', type: 'Commercial', price: 'Contact for pricing', location: 'Jordan', desc: 'Outstanding commercial and investment opportunities across diverse sectors including retail, offices, and warehouses with attractive returns.', url: './projects/commercial.html' }
+        ar: { name: 'المشاريع التجارية', type: 'مكاتب ومعارض', price: 'تواصل للأسعار', location: 'الأردن', desc: 'فرص تجارية واستثمارية متميزة في قطاعات متنوعة تشمل المحلات التجارية والمكاتب والمستودعات بعوائد إيجارية مجزية.', url: './projects/commercial.html' },
+        en: { name: 'Commercial Projects', type: 'Offices & Retail', price: 'Contact for pricing', location: 'Jordan', desc: 'Outstanding commercial and investment opportunities across diverse sectors including retail, offices, and warehouses with attractive returns.', url: './projects/commercial.html' }
     }
 };
 
